@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:prototypes/components/appbarsearch.com.dart';
 import 'package:prototypes/components/maincard.com.dart';
 import 'package:prototypes/components/namecard.com.dart';
+import 'package:prototypes/enums/busloading.enum.dart';
+import 'package:prototypes/models/terminal/terminal.model.dart';
+import 'package:prototypes/repositories/terminal.repository.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final data = ref.watch(TerminalRepositoryNotifier.provider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bus Terminal'),
@@ -24,46 +30,74 @@ class HomePage extends StatelessWidget {
           child: AppBarSearchCom(),
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(20),
-        children: const [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'Location',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: data.location == null
+          ? Center(
+              child: Column(
+                children: [
+                  Lottie.asset('assets/lottie/39612-location-animation.json')
+                ],
               ),
-            ),
-          ),
-          MainCardCom(
-            busName: 'Bus Name Bus Name Bus Name ',
-            busLocation: 'Bus Location',
-            busCost: '\$2.50',
-            busBoarding: 'Boarding in Progress',
-            loadingTime: 'Time Past: 10 minute',
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'Queue Line - 3',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+            )
+          : ContentList(data: data),
+    );
+  }
+}
+
+class ContentList extends StatelessWidget {
+  const ContentList({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final Terminal data;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(20),
+      children: [
+        // Center(
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(vertical: 10),
+        //     child: Text(
+        //       data.location!,
+        //       style: const TextStyle(
+        //         fontSize: 28,
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        if (data.bus == null)
+          ...[]
+        else ...[
+          for (final item in data.bus!)
+            if (item.isLoading) ...[
+              MainCardCom(
+                busName: item.name!,
+                busLocation: item.locations!,
+                busCost: item.price!,
+                busBoarding: busLoadingToString(item.loading!),
+                loadingTime: 'Time Past: ${item.loadtime} minute',
               ),
-            ),
-          ),
-          NameCardCom(title: 'Bus Name'),
-          NameCardCom(title: 'Bus Name'),
-          NameCardCom(title: 'Bus Name'),
+            ] else ...[
+              // const Center(
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(vertical: 10),
+              //     child: Text(
+              //       'Queue Line - 3',
+              //       style: TextStyle(
+              //         fontSize: 24,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              NameCardCom(title: item.name!, state: item.loading!),
+            ],
         ],
-      ),
+      ],
     );
   }
 }

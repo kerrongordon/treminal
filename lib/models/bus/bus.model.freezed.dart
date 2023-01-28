@@ -17,11 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Bus {
   String? get name => throw _privateConstructorUsedError;
-  List<Location?> get locations => throw _privateConstructorUsedError;
-  Location? get comingForm => throw _privateConstructorUsedError;
-  Location? get goingTo => throw _privateConstructorUsedError;
+  String? get locations => throw _privateConstructorUsedError;
+  String? get price => throw _privateConstructorUsedError;
+  BusLoading? get loading => throw _privateConstructorUsedError;
   DateTime? get timeStamp => throw _privateConstructorUsedError;
-  Dock? get dockLocation => throw _privateConstructorUsedError;
+  int? get loadtime => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get inQueue => throw _privateConstructorUsedError;
 
@@ -36,11 +36,11 @@ abstract class $BusCopyWith<$Res> {
   @useResult
   $Res call(
       {String? name,
-      List<Location?> locations,
-      Location? comingForm,
-      Location? goingTo,
+      String? locations,
+      String? price,
+      BusLoading? loading,
       DateTime? timeStamp,
-      Dock? dockLocation,
+      int? loadtime,
       bool isLoading,
       bool inQueue});
 }
@@ -58,11 +58,11 @@ class _$BusCopyWithImpl<$Res, $Val extends Bus> implements $BusCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? locations = null,
-    Object? comingForm = freezed,
-    Object? goingTo = freezed,
+    Object? locations = freezed,
+    Object? price = freezed,
+    Object? loading = freezed,
     Object? timeStamp = freezed,
-    Object? dockLocation = freezed,
+    Object? loadtime = freezed,
     Object? isLoading = null,
     Object? inQueue = null,
   }) {
@@ -71,26 +71,26 @@ class _$BusCopyWithImpl<$Res, $Val extends Bus> implements $BusCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      locations: null == locations
+      locations: freezed == locations
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<Location?>,
-      comingForm: freezed == comingForm
-          ? _value.comingForm
-          : comingForm // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      goingTo: freezed == goingTo
-          ? _value.goingTo
-          : goingTo // ignore: cast_nullable_to_non_nullable
-              as Location?,
+              as String?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as BusLoading?,
       timeStamp: freezed == timeStamp
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      dockLocation: freezed == dockLocation
-          ? _value.dockLocation
-          : dockLocation // ignore: cast_nullable_to_non_nullable
-              as Dock?,
+      loadtime: freezed == loadtime
+          ? _value.loadtime
+          : loadtime // ignore: cast_nullable_to_non_nullable
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -111,11 +111,11 @@ abstract class _$$_BusCopyWith<$Res> implements $BusCopyWith<$Res> {
   @useResult
   $Res call(
       {String? name,
-      List<Location?> locations,
-      Location? comingForm,
-      Location? goingTo,
+      String? locations,
+      String? price,
+      BusLoading? loading,
       DateTime? timeStamp,
-      Dock? dockLocation,
+      int? loadtime,
       bool isLoading,
       bool inQueue});
 }
@@ -130,11 +130,11 @@ class __$$_BusCopyWithImpl<$Res> extends _$BusCopyWithImpl<$Res, _$_Bus>
   @override
   $Res call({
     Object? name = freezed,
-    Object? locations = null,
-    Object? comingForm = freezed,
-    Object? goingTo = freezed,
+    Object? locations = freezed,
+    Object? price = freezed,
+    Object? loading = freezed,
     Object? timeStamp = freezed,
-    Object? dockLocation = freezed,
+    Object? loadtime = freezed,
     Object? isLoading = null,
     Object? inQueue = null,
   }) {
@@ -143,26 +143,26 @@ class __$$_BusCopyWithImpl<$Res> extends _$BusCopyWithImpl<$Res, _$_Bus>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      locations: null == locations
-          ? _value._locations
+      locations: freezed == locations
+          ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<Location?>,
-      comingForm: freezed == comingForm
-          ? _value.comingForm
-          : comingForm // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      goingTo: freezed == goingTo
-          ? _value.goingTo
-          : goingTo // ignore: cast_nullable_to_non_nullable
-              as Location?,
+              as String?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as BusLoading?,
       timeStamp: freezed == timeStamp
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      dockLocation: freezed == dockLocation
-          ? _value.dockLocation
-          : dockLocation // ignore: cast_nullable_to_non_nullable
-              as Dock?,
+      loadtime: freezed == loadtime
+          ? _value.loadtime
+          : loadtime // ignore: cast_nullable_to_non_nullable
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -180,35 +180,27 @@ class __$$_BusCopyWithImpl<$Res> extends _$BusCopyWithImpl<$Res, _$_Bus>
 class _$_Bus extends _Bus {
   const _$_Bus(
       {this.name,
-      final List<Location?> locations = const [],
-      this.comingForm,
-      this.goingTo,
+      this.locations,
+      this.price,
+      this.loading,
       this.timeStamp,
-      this.dockLocation,
+      this.loadtime,
       this.isLoading = false,
       this.inQueue = true})
-      : _locations = locations,
-        super._();
+      : super._();
 
   @override
   final String? name;
-  final List<Location?> _locations;
   @override
-  @JsonKey()
-  List<Location?> get locations {
-    if (_locations is EqualUnmodifiableListView) return _locations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_locations);
-  }
-
+  final String? locations;
   @override
-  final Location? comingForm;
+  final String? price;
   @override
-  final Location? goingTo;
+  final BusLoading? loading;
   @override
   final DateTime? timeStamp;
   @override
-  final Dock? dockLocation;
+  final int? loadtime;
   @override
   @JsonKey()
   final bool isLoading;
@@ -218,7 +210,7 @@ class _$_Bus extends _Bus {
 
   @override
   String toString() {
-    return 'Bus(name: $name, locations: $locations, comingForm: $comingForm, goingTo: $goingTo, timeStamp: $timeStamp, dockLocation: $dockLocation, isLoading: $isLoading, inQueue: $inQueue)';
+    return 'Bus(name: $name, locations: $locations, price: $price, loading: $loading, timeStamp: $timeStamp, loadtime: $loadtime, isLoading: $isLoading, inQueue: $inQueue)';
   }
 
   @override
@@ -227,31 +219,22 @@ class _$_Bus extends _Bus {
         (other.runtimeType == runtimeType &&
             other is _$_Bus &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._locations, _locations) &&
-            (identical(other.comingForm, comingForm) ||
-                other.comingForm == comingForm) &&
-            (identical(other.goingTo, goingTo) || other.goingTo == goingTo) &&
+            (identical(other.locations, locations) ||
+                other.locations == locations) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.timeStamp, timeStamp) ||
                 other.timeStamp == timeStamp) &&
-            (identical(other.dockLocation, dockLocation) ||
-                other.dockLocation == dockLocation) &&
+            (identical(other.loadtime, loadtime) ||
+                other.loadtime == loadtime) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.inQueue, inQueue) || other.inQueue == inQueue));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      const DeepCollectionEquality().hash(_locations),
-      comingForm,
-      goingTo,
-      timeStamp,
-      dockLocation,
-      isLoading,
-      inQueue);
+  int get hashCode => Object.hash(runtimeType, name, locations, price, loading,
+      timeStamp, loadtime, isLoading, inQueue);
 
   @JsonKey(ignore: true)
   @override
@@ -263,11 +246,11 @@ class _$_Bus extends _Bus {
 abstract class _Bus extends Bus {
   const factory _Bus(
       {final String? name,
-      final List<Location?> locations,
-      final Location? comingForm,
-      final Location? goingTo,
+      final String? locations,
+      final String? price,
+      final BusLoading? loading,
       final DateTime? timeStamp,
-      final Dock? dockLocation,
+      final int? loadtime,
       final bool isLoading,
       final bool inQueue}) = _$_Bus;
   const _Bus._() : super._();
@@ -275,15 +258,15 @@ abstract class _Bus extends Bus {
   @override
   String? get name;
   @override
-  List<Location?> get locations;
+  String? get locations;
   @override
-  Location? get comingForm;
+  String? get price;
   @override
-  Location? get goingTo;
+  BusLoading? get loading;
   @override
   DateTime? get timeStamp;
   @override
-  Dock? get dockLocation;
+  int? get loadtime;
   @override
   bool get isLoading;
   @override
