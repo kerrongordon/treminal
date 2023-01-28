@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:prototypes/pages/home.page.dart';
 
@@ -11,10 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'Bus Terminal',
+      debugShowCheckedModeBanner: false,
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.flutterDash,
+        useMaterial3: true,
       ),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.flutterDash,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system,
       home: const HomePage(),
     );
   }

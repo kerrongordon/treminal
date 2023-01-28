@@ -1,136 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:prototypes/data/location.data.dart';
+import 'package:prototypes/components/appbarsearch.com.dart';
+import 'package:prototypes/components/maincard.com.dart';
+import 'package:prototypes/components/namecard.com.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Terminal'),
-        elevation: 0,
+        title: const Text('Bus Terminal'),
         centerTitle: true,
-        backgroundColor: Colors.green,
+        backgroundColor: theme.primaryColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(25),
+          ),
+        ),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(230),
+          child: AppBarSearchCom(),
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 175,
-            child: Stack(children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 175,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                  ),
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(20),
+        children: const [
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Location',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Positioned(
-                top: 100,
-                left: 0,
-                right: 0,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 30, right: 30),
-                  child: Card(
-                      elevation: 30,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      // color: Colors.yellow,
-                      child: Autocomplete(
-                        optionsBuilder: (TextEditingValue textEditingValue) {
-                          if (textEditingValue.text == '') {
-                            return const Iterable<String>.empty();
-                          } else {
-                            List<String> matches = <String>[];
-                            matches.addAll(locationList);
-
-                            matches.retainWhere((s) {
-                              return s.toLowerCase().contains(
-                                  textEditingValue.text.toLowerCase());
-                            });
-                            return matches;
-                          }
-                        },
-                        optionsViewBuilder: (context, onSelected, options) {
-                          return const SizedBox(
-                            width: 15,
-                            child: Card(),
-                          );
-                        },
-                        fieldViewBuilder: (context, textEditingController,
-                            focusNode, onFieldSubmitted) {
-                          return TextField(
-                            focusNode: focusNode,
-                            controller: textEditingController,
-                            onEditingComplete: onFieldSubmitted,
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.search),
-                              suffixIcon: Icon(Icons.home),
-                              border: InputBorder.none,
-                            ),
-                            autofillHints: locationList,
-                          );
-                        },
-                        onSelected: (String selection) {
-                          print('You just selected $selection');
-                        },
-                      )),
+            ),
+          ),
+          MainCardCom(
+            busName: 'Bus Name Bus Name Bus Name ',
+            busLocation: 'Bus Location',
+            busCost: '\$2.50',
+            busBoarding: 'Boarding in Progress',
+            loadingTime: 'Time Past: 10 minute',
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Queue Line - 3',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ]),
-          ),
-          const SizedBox(height: 40),
-          Card(
-            child: Container(
-              color: Colors.green,
-              width: double.infinity,
-              child: const ListTile(
-                title: Text('Title'),
-                subtitle: Text('subtitle'),
-                isThreeLine: true,
-                trailing: Icon(Icons.account_balance_wallet),
-              ),
             ),
           ),
-          Card(
-            child: Container(
-              color: Colors.green,
-              width: double.infinity,
-              child: const ListTile(
-                title: Text('Title'),
-                subtitle: Text('subtitle'),
-                isThreeLine: true,
-                trailing: Icon(Icons.account_balance_wallet),
-              ),
-            ),
-          ),
-          Card(
-            child: Container(
-              color: Colors.green,
-              width: double.infinity,
-              child: const ListTile(
-                title: Text('Title'),
-                subtitle: Text('subtitle'),
-                isThreeLine: true,
-                trailing: Icon(Icons.account_balance_wallet),
-              ),
-            ),
-          ),
+          NameCardCom(title: 'Bus Name'),
+          NameCardCom(title: 'Bus Name'),
+          NameCardCom(title: 'Bus Name'),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

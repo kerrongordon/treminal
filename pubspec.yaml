@@ -33,6 +33,9 @@ dependencies:
   flutter:
     sdk: flutter
   freezed_annotation: ^2.2.0
+  flex_color_scheme: ^6.1.2
+  fluentui_system_icons: ^1.1.190
+  lottie: ^2.2.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -45,6 +48,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.2
   build_runner: ^2.3.3
+  flutter_launcher_icons: ^0.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -55,8 +59,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -81,3 +86,25 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon/ic_launcher.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "assets/icon/ic_launcher_adaptive_back.png"
+  adaptive_icon_foreground: "assets/icon/ic_launcher_adaptive_fore.png"
+  web:
+    generate: true
+    image_path: "assets/icon/ic_launcher.png"
+    background_color: "#4496E0"
+    theme_color: "#4496E0"
+  windows:
+    generate: true
+    image_path: "assets/icon/ic_launcher.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icon/ic_launcher.png"
