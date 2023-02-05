@@ -5,9 +5,5 @@ part 'terminal.model.freezed.dart';
 
 @freezed
 class Terminal with _$Terminal {
-  const Terminal._();
-  const factory Terminal({
-    String? location,
-    List<Bus>? bus,
-  }) = _Terminal;
+  const factory Terminal({String? location, List<Bus>? bus}) = _Terminal;
 }

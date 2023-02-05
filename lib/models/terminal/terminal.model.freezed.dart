@@ -100,10 +100,8 @@ class __$$_TerminalCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Terminal extends _Terminal {
-  const _$_Terminal({this.location, final List<Bus>? bus})
-      : _bus = bus,
-        super._();
+class _$_Terminal implements _Terminal {
+  const _$_Terminal({this.location, final List<Bus>? bus}) : _bus = bus;
 
   @override
   final String? location;
@@ -143,10 +141,9 @@ class _$_Terminal extends _Terminal {
       __$$_TerminalCopyWithImpl<_$_Terminal>(this, _$identity);
 }
 
-abstract class _Terminal extends Terminal {
+abstract class _Terminal implements Terminal {
   const factory _Terminal({final String? location, final List<Bus>? bus}) =
       _$_Terminal;
-  const _Terminal._() : super._();
 
   @override
   String? get location;

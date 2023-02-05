@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:prototypes/data/location.data.dart';
-import 'package:prototypes/repositories/terminal.repository.dart';
 
 class AppBarSearchCom extends HookConsumerWidget {
   const AppBarSearchCom({
     Key? key,
+    required this.onSelected,
   }) : super(key: key);
+
+  final void Function(String) onSelected;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(TerminalRepositoryNotifier.provider.notifier);
     return SizedBox(
       height: 230,
       child: Stack(children: [
@@ -96,8 +97,8 @@ class AppBarSearchCom extends HookConsumerWidget {
                   );
                 },
                 onSelected: (String selection) {
-                  data.search(selection);
                   FocusManager.instance.primaryFocus?.unfocus();
+                  return onSelected(selection);
                 },
               ),
             ),

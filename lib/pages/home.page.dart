@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:prototypes/components/appbarsearch.com.dart';
@@ -6,7 +7,7 @@ import 'package:prototypes/components/maincard.com.dart';
 import 'package:prototypes/components/namecard.com.dart';
 import 'package:prototypes/enums/busloading.enum.dart';
 import 'package:prototypes/models/terminal/terminal.model.dart';
-import 'package:prototypes/repositories/terminal.repository.dart';
+import 'package:prototypes/providers/appdata.provider.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -14,7 +15,9 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final data = ref.watch(TerminalRepositoryNotifier.provider);
+    final location = useState<String>('');
+    final data = ref.watch(appDataProvider(location.value));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bus Terminal'),
@@ -25,12 +28,16 @@ class HomePage extends HookConsumerWidget {
             bottom: Radius.circular(25),
           ),
         ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(230),
-          child: AppBarSearchCom(),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(230),
+          child: AppBarSearchCom(
+            onSelected: (search) {
+              location.value = search;
+            },
+          ),
         ),
       ),
-      body: data.location == null
+      body: location.value == ''
           ? Center(
               child: Column(
                 children: [
@@ -38,7 +45,11 @@ class HomePage extends HookConsumerWidget {
                 ],
               ),
             )
-          : ContentList(data: data),
+          : data.when(
+              data: (data) => ContentList(data: data),
+              error: (error, stackTrace) => Center(child: Text('$error')),
+              loading: () => const Center(child: CircularProgressIndicator()),
+            ),
     );
   }
 }
@@ -57,18 +68,6 @@ class ContentList extends StatelessWidget {
       shrinkWrap: true,
       padding: const EdgeInsets.all(20),
       children: [
-        // Center(
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(vertical: 10),
-        //     child: Text(
-        //       data.location!,
-        //       style: const TextStyle(
-        //         fontSize: 28,
-        //         fontWeight: FontWeight.bold,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         if (data.bus == null)
           ...[]
         else ...[
@@ -82,18 +81,6 @@ class ContentList extends StatelessWidget {
                 loadingTime: 'Time Past: ${item.loadtime} minute',
               ),
             ] else ...[
-              // const Center(
-              //   child: Padding(
-              //     padding: EdgeInsets.symmetric(vertical: 10),
-              //     child: Text(
-              //       'Queue Line - 3',
-              //       style: TextStyle(
-              //         fontSize: 24,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               NameCardCom(title: item.name!, state: item.loading!),
             ],
         ],
