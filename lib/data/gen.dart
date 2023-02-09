@@ -33,7 +33,7 @@ String priceRange(String location) {
 
 List<Terminal> appData = locationList.map((location) {
   var random = Random();
-  List<Bus> buses = List.generate(4, (index) {
+  List<Bus> buses = List.generate(6, (index) {
     final busLoading =
         index == 0 ? BusLoading.boardingInProgress : BusLoading.queue;
     BusLoading.values[random.nextInt(BusLoading.values.length)];

@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
       title: 'Bus Terminal',
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        scheme: FlexScheme.material,
+        scheme: FlexScheme.jungle,
         useMaterial3: true,
       ),
       darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.material,
+        scheme: FlexScheme.jungle,
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
